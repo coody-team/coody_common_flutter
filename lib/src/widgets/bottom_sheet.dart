@@ -67,7 +67,7 @@ class BottomSheetFrame extends StatelessWidget {
                 Expanded(
                   child: AppButtonTheme(
                     data: AppButtonThemeData(
-                      style: context.buttonThemes.secondary.filled.medium,
+                      style: context.buttonThemes.primary.none.medium,
                     ),
                     child: leftButton!,
                   ),
@@ -304,7 +304,7 @@ class BottomSheetAgreeTermsFrame extends StatelessWidget {
             children: [
               Expanded(
                 child: AppButtonTheme(
-                  data: AppButtonThemeData(style: context.buttonThemes.secondary.filled.medium),
+                  data: AppButtonThemeData(style: context.buttonThemes.primary.none.medium),
                   child: leftButton,
                 ),
               ),

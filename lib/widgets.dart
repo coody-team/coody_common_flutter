@@ -4,12 +4,14 @@ export 'src/widgets/buttons/app_button.dart';
 export 'src/widgets/buttons/bar_button.dart';
 export 'src/widgets/buttons/function_button.dart';
 export 'src/widgets/buttons/left_aligned_outlined_button.dart';
+export 'src/widgets/buttons/login_buttons.dart';
 export 'src/widgets/buttons/text_icon_button.dart';
 
 export 'src/widgets/selections/select_buttons.dart';
 export 'src/widgets/selections/select_tiles.dart';
 
 export 'src/widgets/app_snack_bar.dart';
+export 'src/widgets/bar_divider.dart';
 export 'src/widgets/bottom_sheet.dart';
 export 'src/widgets/calendar.dart';
 export 'src/widgets/dialog_frames.dart';

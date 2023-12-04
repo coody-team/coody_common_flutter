@@ -20,7 +20,7 @@ class LoadingDialogListener<B extends StateStreamable<S>, S extends LoadingState
             if (state.isLoading) {
               showLoadingDialog(context);
             } else {
-              closeLoadingDialog(context);
+              Navigator.of(context).pop();
             }
           },
           listenWhen: (previous, current) =>
@@ -45,5 +45,3 @@ void showLoadingDialog(BuildContext context) {
     },
   );
 }
-
-void closeLoadingDialog(BuildContext context) => Navigator.of(context).pop();

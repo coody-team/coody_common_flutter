@@ -28,7 +28,7 @@ class _DialogBase extends StatelessWidget {
   }
 }
 
-enum _DialogFrameStyle {
+enum DialogFrameStyle {
   standard,
   alert;
 
@@ -45,7 +45,7 @@ class DialogFrame extends StatelessWidget {
     required this.body,
     required this.rightButton,
     this.leftButton,
-  }) : _style = _DialogFrameStyle.standard;
+  }) : _style = DialogFrameStyle.standard;
 
   const DialogFrame.alert({
     super.key,
@@ -53,14 +53,17 @@ class DialogFrame extends StatelessWidget {
     required this.body,
     required this.rightButton,
     this.leftButton,
-  }) : _style = _DialogFrameStyle.alert;
+  }) : _style = DialogFrameStyle.alert;
 
   final Widget title;
   final Widget body;
   final Widget rightButton;
   final Widget? leftButton;
 
-  final _DialogFrameStyle _style;
+  final DialogFrameStyle _style;
+
+  ButtonStyle defaultRightButtonStyle(BuildContext context, DialogFrameStyle style) =>
+      style.getRightButtonStyle(context);
 
   @override
   Widget build(BuildContext context) {
@@ -85,7 +88,7 @@ class DialogFrame extends StatelessWidget {
                 Expanded(
                   child: AppButtonTheme(
                     data: AppButtonThemeData(
-                      style: context.buttonThemes.secondary.filled.medium,
+                      style: context.buttonThemes.primary.none.medium,
                     ),
                     child: leftButton!,
                   ),
@@ -95,7 +98,7 @@ class DialogFrame extends StatelessWidget {
               Expanded(
                 child: AppButtonTheme(
                   data: AppButtonThemeData(
-                    style: _style.getRightButtonStyle(context),
+                    style: defaultRightButtonStyle(context, _style),
                   ),
                   child: rightButton,
                 ),

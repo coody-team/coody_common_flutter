@@ -75,13 +75,16 @@ class PageIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SmoothPageIndicator(
-      controller: pageController,
-      count: count,
-      effect: _size.getEffect(context).copyWith(
-            dotColor: dotColor,
-            activeDotColor: activeDotColor,
-          ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 6.0),
+      child: SmoothPageIndicator(
+        controller: pageController,
+        count: count,
+        effect: _size.getEffect(context).copyWith(
+              dotColor: dotColor,
+              activeDotColor: activeDotColor,
+            ),
+      ),
     );
   }
 }

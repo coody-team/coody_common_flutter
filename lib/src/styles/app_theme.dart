@@ -1,7 +1,7 @@
-import 'package:coody_common_flutter/src/styles/app_colors.dart';
-import 'package:coody_common_flutter/src/styles/app_typography.dart';
+import 'package:coody_common_flutter/styles.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:material_symbols_icons/symbols.dart';
 
 AppColors? _lightColors;
 AppColors? _darkColors;
@@ -32,12 +32,14 @@ extension AppThemeX on BuildContext {
   }
 }
 
-ThemeData lightTheme() => _buildTheme(_lightColors ?? AppColors.light(), Brightness.light);
-ThemeData darkTheme() => _buildTheme(_darkColors ?? AppColors.dark(), Brightness.dark);
+ThemeData lightTheme() => buildTheme(_lightColors ?? AppColors.light(), Brightness.light);
+ThemeData darkTheme() => buildTheme(_darkColors ?? AppColors.dark(), Brightness.dark);
 
-ThemeData _buildTheme(AppColors colors, Brightness brightness) {
+ThemeData buildTheme(AppColors colors, Brightness brightness) {
   final typography = AppTypography.fromColor(colors);
-  final baseTheme = ThemeData.light(useMaterial3: true);
+  final baseTheme = brightness == Brightness.light
+      ? ThemeData.light(useMaterial3: true)
+      : ThemeData.dark(useMaterial3: true);
 
   return baseTheme.copyWith(
     brightness: brightness,
@@ -57,7 +59,7 @@ ThemeData _buildTheme(AppColors colors, Brightness brightness) {
     highlightColor: Colors.transparent,
     iconTheme: IconThemeData(color: colors.gray8, weight: 300.0),
     bottomSheetTheme: BottomSheetThemeData(
-      backgroundColor: colors.gray2,
+      backgroundColor: colors.background,
       surfaceTintColor: Colors.transparent,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
@@ -76,6 +78,19 @@ ThemeData _buildTheme(AppColors colors, Brightness brightness) {
       surfaceTintColor: Colors.transparent,
       titleTextStyle: typography.title1.normal,
       elevation: 0.0,
+      titleSpacing: 24.0,
+    ),
+    actionIconTheme: ActionIconThemeData(
+      backButtonIconBuilder: (context) => Icon(
+        Symbols.arrow_left_alt_rounded,
+        size: 24.0,
+        weight: 300.0,
+      ),
+      closeButtonIconBuilder: (context) => Icon(
+        Symbols.close_rounded,
+        size: 24.0,
+        weight: 300.0,
+      ),
     ),
     // tabBarTheme: TabBarTheme(
     //   labelStyle: typography.subtitle2,
@@ -103,7 +118,7 @@ ThemeData _buildTheme(AppColors colors, Brightness brightness) {
     ),
     dividerTheme: DividerThemeData(
       color: colors.gray4,
-      thickness: 0.8,
+      thickness: 0.4,
       space: 2.0,
     ),
   );

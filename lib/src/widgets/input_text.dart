@@ -36,6 +36,7 @@ class InputText extends StatefulWidget {
     this.helpMessage,
     this.errorMessage,
     this.hintText,
+    this.initialText,
     this.maxLength,
     this.maxLines,
     this.textInputAction,
@@ -56,6 +57,7 @@ class InputText extends StatefulWidget {
     this.helpMessage,
     this.errorMessage,
     this.hintText,
+    this.initialText,
     this.maxLength,
     this.maxLines,
     this.textInputAction,
@@ -74,6 +76,7 @@ class InputText extends StatefulWidget {
   final Widget? helpMessage;
   final Widget? errorMessage;
   final String? hintText;
+  final String? initialText;
   final int? maxLength;
   final int? maxLines;
   final TextInputAction? textInputAction;
@@ -94,27 +97,22 @@ class InputText extends StatefulWidget {
 
 class _InputTextState extends State<InputText> {
   late final TextEditingController _controller;
-  late final FocusNode _focusNode;
 
   @override
   void initState() {
     super.initState();
 
-    _controller = widget.controller ?? TextEditingController();
-    _focusNode = widget.focusNode ?? FocusNode();
+    _controller = widget.controller ?? TextEditingController(text: widget.initialText ?? '');
   }
 
   @override
   void dispose() {
     if (widget.controller == null) _controller.dispose();
-    if (widget.focusNode == null) _focusNode.dispose();
     super.dispose();
   }
 
   bool get _showFooter =>
-      widget.helpMessage != null ||
-      widget.errorMessage != null ||
-      (widget.maxLength != null && _focusNode.hasFocus);
+      widget.helpMessage != null || widget.errorMessage != null || widget.maxLength != null;
 
   Widget get _footer {
     return Padding(
@@ -123,6 +121,7 @@ class _InputTextState extends State<InputText> {
         mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          const SizedBox(width: 12.0),
           if (widget.errorMessage != null)
             Expanded(
               child: DefaultTextStyle(
@@ -234,7 +233,7 @@ class _InputTextState extends State<InputText> {
                       padding: widget._size.inputPadding,
                       child: TextField(
                         controller: _controller,
-                        focusNode: _focusNode,
+                        focusNode: widget.focusNode,
                         decoration: InputDecoration(
                           hintText: widget.hintText,
                           hintStyle: widget._size.getTextStyle(context).copyWith(
@@ -270,22 +269,7 @@ class _InputTextState extends State<InputText> {
             ],
           ),
         ),
-        AnimatedSwitcher(
-          duration: const Duration(milliseconds: 100),
-          switchInCurve: decelerateEasing,
-          switchOutCurve: accelerateEasing,
-          transitionBuilder: (child, animation) {
-            return FadeTransition(
-              opacity: animation,
-              child: SizeTransition(
-                sizeFactor: animation,
-                axisAlignment: -1.0,
-                child: child,
-              ),
-            );
-          },
-          child: _showFooter ? _footer : const SizedBox(),
-        ),
+        _showFooter ? _footer : const SizedBox(),
       ],
     );
   }

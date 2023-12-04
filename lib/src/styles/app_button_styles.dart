@@ -196,8 +196,8 @@ class AppButtonStyles {
     Color? disabledBackgroundColor,
     Color? disabledForegroundColor,
     this.useBackgroundAsPrimary = false,
-  })  : disabledBackgroundColor = disabledBackgroundColor ?? context.colors.gray4,
-        disabledForegroundColor = disabledForegroundColor ?? context.colors.gray5;
+  })  : disabledBackgroundColor = disabledBackgroundColor ?? context.colors.disabledBackgroundColor,
+        disabledForegroundColor = disabledForegroundColor ?? context.colors.disabledForegroundColor;
 
   final BuildContext context;
   final Color enabledBackgroundColor;
@@ -270,18 +270,12 @@ class AppButtonThemes {
         enabledForegroundColor: context.colors.gray8,
       );
 
-  AppButtonStyles get secondary => AppButtonStyles(
-        context,
-        enabledBackgroundColor: context.colors.gray2,
-        enabledForegroundColor: context.colors.gray8,
-      );
-
   AppButtonStyles get primary60 => AppButtonStyles(
         context,
         enabledBackgroundColor: context.colors.gray3.withOpacity(0.6),
-        disabledBackgroundColor: context.colors.gray4.withOpacity(0.6),
+        disabledBackgroundColor: context.colors.disabledBackgroundColor.withOpacity(0.6),
         enabledForegroundColor: context.colors.gray8.withOpacity(0.6),
-        disabledForegroundColor: context.colors.gray5.withOpacity(0.6),
+        disabledForegroundColor: context.colors.disabledForegroundColor.withOpacity(0.6),
       );
 
   AppButtonStyles get alert => AppButtonStyles(

@@ -1,3 +1,4 @@
+import 'package:coody_common_flutter/styles.dart';
 import 'package:flutter/material.dart';
 
 class LoadingIndicator extends StatelessWidget {
@@ -13,7 +14,7 @@ class LoadingIndicator extends StatelessWidget {
     return SizedBox(
       width: size.width,
       height: size.height,
-      child: const CircularProgressIndicator(),
+      child: CircularProgressIndicator(color: context.colors.gray8),
     );
   }
 }

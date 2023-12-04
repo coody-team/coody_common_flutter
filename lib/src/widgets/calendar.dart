@@ -1,8 +1,9 @@
 import 'package:coody_common_flutter/src/styles/app_colors.dart';
 import 'package:coody_common_flutter/src/styles/app_theme.dart';
+import 'package:coody_common_flutter/src/utils/datetime_util.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:table_calendar/table_calendar.dart';
+import 'package:table_calendar/table_calendar.dart' hide isSameDay;
 
 typedef CalendarCellBuilder = Widget Function(
     BuildContext context, DateTime day, DateTime focusedDay);
@@ -57,10 +58,6 @@ class _CalendarState extends State<Calendar> {
     );
   }
 
-  bool _isSameMonth(DateTime a, DateTime b) {
-    return a.year == b.year && a.month == b.month;
-  }
-
   @override
   Widget build(BuildContext context) {
     return TableCalendar(
@@ -69,6 +66,8 @@ class _CalendarState extends State<Calendar> {
       focusedDay: _focusedDay,
       daysOfWeekHeight: 42.0,
       rowHeight: 42.0,
+      sixWeekMonthsEnforced: true,
+      calendarFormat: CalendarFormat.month,
       headerStyle: HeaderStyle(
         formatButtonVisible: false,
         leftChevronVisible: false,
@@ -88,7 +87,7 @@ class _CalendarState extends State<Calendar> {
             child: Align(
               alignment: Alignment.centerLeft,
               child: Text(
-                DateFormat.yM().format(day).replaceAll(' ', ''),
+                day.format(DateFormat.yM()),
                 style: context.typography.title1.emphasized,
               ),
             ),
@@ -117,7 +116,7 @@ class _CalendarState extends State<Calendar> {
       ),
       onPageChanged: (focusedDay) {
         var day = focusedDay;
-        if (_isSameMonth(focusedDay, DateTime.now())) {
+        if (isSameMonth(focusedDay, DateTime.now())) {
           day = DateTime.now();
         }
 
@@ -144,11 +143,18 @@ class CalendarCell extends StatelessWidget {
     required this.date,
     this.backgroundColor,
     this.foregroundColor,
+    this.backgroundBuilder,
   });
 
   final DateTime date;
   final Color? backgroundColor;
   final Color? foregroundColor;
+  final Widget Function(BuildContext context, Widget child)? backgroundBuilder;
+
+  Widget _childBuilder(BuildContext context, {required Widget child}) {
+    if (backgroundBuilder != null) return backgroundBuilder!.call(context, child);
+    return child;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -158,11 +164,14 @@ class CalendarCell extends StatelessWidget {
         shape: BoxShape.circle,
       ),
       constraints: BoxConstraints(maxHeight: 34.0, maxWidth: 34.0),
-      child: Center(
-        child: Text(
-          date.day.toString(),
-          style: context.typography.body1.emphasized.copyWith(
-            color: foregroundColor,
+      child: _childBuilder(
+        context,
+        child: Center(
+          child: Text(
+            date.day.toString(),
+            style: context.typography.body1.emphasized.copyWith(
+              color: foregroundColor,
+            ),
           ),
         ),
       ),

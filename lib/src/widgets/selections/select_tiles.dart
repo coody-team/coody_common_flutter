@@ -26,6 +26,7 @@ class _SelectTileBase extends StatelessWidget {
         color: Colors.transparent,
         padding: const EdgeInsets.symmetric(vertical: 8.0),
         child: Row(
+          mainAxisSize: MainAxisSize.min,
           children: [
             selection,
             const SizedBox(width: 8.0),
@@ -35,12 +36,14 @@ class _SelectTileBase extends StatelessWidget {
                 child: body,
               ),
             ),
-            const SizedBox(width: 8.0),
-            AppButton(
-              style: context.buttonThemes.primary.iconSquare.none.medium,
-              onPressed: onActionTap,
-              child: Icon(Symbols.keyboard_arrow_right_rounded),
-            ),
+            if (onActionTap != null) ...[
+              const SizedBox(width: 8.0),
+              AppButton(
+                style: context.buttonThemes.primary.iconSquare.none.medium,
+                onPressed: onActionTap,
+                child: Icon(Symbols.keyboard_arrow_right_rounded),
+              ),
+            ],
           ],
         ),
       ),
@@ -86,7 +89,12 @@ class SelectBoxTile extends StatelessWidget {
       selection: _style.isPrimary
           ? SelectBox(value: value, onChanged: onChanged)
           : SelectBox.alert(value: value, onChanged: onChanged),
-      body: text,
+      body: DefaultTextStyle(
+        style: context.typography.body1.normal.copyWith(
+          color: _style.isAlert ? context.colors.red : null,
+        ),
+        child: text,
+      ),
       onTap: () => onChanged?.call(value),
       onActionTap: onActionTap,
     );

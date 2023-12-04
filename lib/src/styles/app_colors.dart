@@ -17,6 +17,8 @@ class AppColors {
   Color get background => gray1;
   Color get primary => gray3;
   Color get secondary => gray2;
+  Color get disabledBackgroundColor => gray2;
+  Color get disabledForegroundColor => gray3;
 
   AppColors({
     required this.gray1,

@@ -8,17 +8,19 @@ class BarDivider extends StatelessWidget {
     super.key,
     required this.title,
     this.action,
+    this.padding,
   });
 
   final Widget title;
   final Widget? action;
+  final EdgeInsets? padding;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
       height: 56.0,
-      padding: const EdgeInsets.symmetric(horizontal: 24.0),
+      padding: padding,
       child: Row(
         children: [
           Expanded(

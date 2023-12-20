@@ -1,4 +1,5 @@
 import 'package:coody_common_flutter/src/image/utils/image_provider_util.dart';
+import 'package:coody_common_flutter/src/image/utils/image_widget_util.dart';
 import 'package:coody_common_flutter/src/styles/app_button_styles.dart';
 import 'package:coody_common_flutter/src/styles/app_theme.dart';
 import 'package:coody_common_flutter/src/widgets/buttons/app_button.dart';
@@ -99,17 +100,17 @@ class Tile extends StatelessWidget {
         child: Row(
           children: [
             if (imageUrl != null) ...[
-              Container(
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
+              ClipOval(
+                child: Container(
                   color: imageBackgroundColor ?? context.colors.gray3,
-                  image: DecorationImage(
+                  width: size.imageWith,
+                  height: size.imageWith,
+                  child: Image(
                     fit: imageFit ?? BoxFit.cover,
+                    frameBuilder: ImageWidgetUtil.frameBuilder,
                     image: AdaptiveImageProvider.create(imageUrl!),
                   ),
                 ),
-                width: size.imageWith,
-                height: size.imageWith,
               ),
               const SizedBox(width: 12.0),
             ],

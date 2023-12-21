@@ -32,19 +32,31 @@ class OAuthTokenManager extends ValueNotifier<RefreshTokenState> {
 
   var _accessTokenCompleter = Completer<String?>()..complete(null);
 
-  Future<String?> get accessToken async {
-    if (_accessTokenCompleter.isCompleted) {
-      final token = await _accessTokenCompleter.future;
+  /// [accessToken] 최초 요청 시 동시에 복수 요청이 발생할 경우 [refreshTokens]이 중복 요청되는 현상이 있음.
+  ///
+  /// 이를 해결하기 위해 [accessToken] 요청 시 [_future]에 [accessToken] 요청 Task를 저장하고, Task가 처리되는 도중
+  /// [accessToken] 요청 시 [_future]를 반환하는 방식으로 동시성 제어.
+  Future<String?>? _future;
 
-      if (_isAccessValid(token)) {
-        return token;
+  Future<String?> get accessToken async {
+    return _future ??= () async {
+      String? result;
+      if (_accessTokenCompleter.isCompleted) {
+        final token = await _accessTokenCompleter.future;
+
+        if (_isAccessValid(token)) {
+          result = token;
+        } else {
+          final tokens = await refreshTokens();
+          result = tokens.accessToken;
+        }
       } else {
-        final tokens = await refreshTokens();
-        return tokens.accessToken;
+        result = await _accessTokenCompleter.future;
       }
-    } else {
-      return await _accessTokenCompleter.future;
-    }
+
+      _future = null;
+      return result;
+    }();
   }
 
   Future<void> setTokens(OAuthTokens value) async {

@@ -7,6 +7,8 @@ class DynamicLinkUtil {
     String path, {
     required String dynamicLinkUrl,
     required String packageName,
+    String? socialMediaTitle,
+    Uri? socialMediaImageUrl,
   }) async {
     final dynamicLinkParams = DynamicLinkParameters(
       uriPrefix: dynamicLinkUrl,
@@ -18,6 +20,10 @@ class DynamicLinkUtil {
       iosParameters: IOSParameters(
         bundleId: packageName,
         // minimumVersion: '0',
+      ),
+      socialMetaTagParameters: SocialMetaTagParameters(
+        title: socialMediaTitle,
+        imageUrl: socialMediaImageUrl,
       ),
     );
     final dynamicLink = await FirebaseDynamicLinks.instance.buildShortLink(dynamicLinkParams);

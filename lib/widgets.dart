@@ -6,6 +6,7 @@ export 'src/widgets/buttons/function_button.dart';
 export 'src/widgets/buttons/left_aligned_outlined_button.dart';
 export 'src/widgets/buttons/login_buttons.dart';
 export 'src/widgets/buttons/text_icon_button.dart';
+export 'src/widgets/buttons/toggle_button.dart';
 
 export 'src/widgets/selections/select_buttons.dart';
 export 'src/widgets/selections/select_tiles.dart';

@@ -30,7 +30,7 @@ extension _ButtonShapeX on ButtonStyle {
           ),
         AppButtonSize.large => copyWith(
             padding:
-                MaterialStatePropertyAll(EdgeInsets.symmetric(horizontal: 64.0, vertical: 14.0)),
+                MaterialStatePropertyAll(EdgeInsets.symmetric(horizontal: 48.0, vertical: 14.0)),
             shape: MaterialStatePropertyAll(RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(16.0)),
             )),

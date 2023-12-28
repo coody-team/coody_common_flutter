@@ -14,7 +14,7 @@ class ToggleButton extends StatelessWidget {
   final void Function(bool)? onChanged;
 
   Color getActiveBackgroundColor(BuildContext context) => context.colors.gray6;
-  Color getInactiveBackgroundColor(BuildContext context) => context.colors.gray2;
+  Color getInactiveBackgroundColor(BuildContext context) => context.colors.gray3;
 
   Color _getBackgroundColor(BuildContext context) => switch (value) {
         true => getActiveBackgroundColor(context),

@@ -20,8 +20,7 @@ extension _ButtonShapeX on ButtonStyle {
             iconSize: MaterialStatePropertyAll(20.0),
           ),
         AppButtonSize.medium => copyWith(
-            padding:
-                MaterialStatePropertyAll(EdgeInsets.symmetric(horizontal: 32.0, vertical: 12.0)),
+            padding: MaterialStatePropertyAll(EdgeInsets.all(14.0)),
             shape: MaterialStatePropertyAll(RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(16.0)),
             )),
@@ -29,8 +28,7 @@ extension _ButtonShapeX on ButtonStyle {
             iconSize: MaterialStatePropertyAll(24.0),
           ),
         AppButtonSize.large => copyWith(
-            padding:
-                MaterialStatePropertyAll(EdgeInsets.symmetric(horizontal: 48.0, vertical: 14.0)),
+            padding: MaterialStatePropertyAll(EdgeInsets.all(16.0)),
             shape: MaterialStatePropertyAll(RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(16.0)),
             )),
@@ -38,8 +36,7 @@ extension _ButtonShapeX on ButtonStyle {
             iconSize: MaterialStatePropertyAll(24.0),
           ),
         AppButtonSize.xlarge => copyWith(
-            padding:
-                MaterialStatePropertyAll(EdgeInsets.symmetric(horizontal: 64.0, vertical: 18.0)),
+            padding: MaterialStatePropertyAll(EdgeInsets.all(18.0)),
             shape: MaterialStatePropertyAll(RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(16.0)),
             )),

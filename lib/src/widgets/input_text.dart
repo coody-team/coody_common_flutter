@@ -1,3 +1,4 @@
+import 'package:coody_common_flutter/src/loading/widgets/loading_indicator.dart';
 import 'package:coody_common_flutter/src/styles/app_button_styles.dart';
 import 'package:coody_common_flutter/src/styles/app_theme.dart';
 import 'package:coody_common_flutter/src/widgets/buttons/app_button.dart';
@@ -43,6 +44,7 @@ class InputText extends StatefulWidget {
     this.keyboardType,
     this.autofocus = false,
     this.focusNode,
+    this.isLoading = false,
     this.controller,
     this.onChanged,
     this.onSubmitted,
@@ -64,6 +66,7 @@ class InputText extends StatefulWidget {
     this.keyboardType,
     this.autofocus = false,
     this.focusNode,
+    this.isLoading = false,
     this.controller,
     this.onChanged,
     this.onSubmitted,
@@ -83,6 +86,7 @@ class InputText extends StatefulWidget {
   final TextInputType? keyboardType;
   final bool autofocus;
   final FocusNode? focusNode;
+  final bool isLoading;
   final TextEditingController? controller;
   final void Function(String text)? onChanged;
   final void Function(String text)? onSubmitted;
@@ -190,7 +194,9 @@ class _InputTextState extends State<InputText> {
         valueListenable: _controller,
         builder: (context, value, child) {
           Widget content = const SizedBox();
-          if (widget.onSendTap != null) {
+          if (widget.isLoading) {
+            content = const LoadingIndicator();
+          } else if (widget.onSendTap != null) {
             content = _sendButton;
           } else if (widget.onClearTap != null && value.text.isNotEmpty) {
             content = _clearButton;

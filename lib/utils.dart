@@ -10,6 +10,7 @@ export 'src/utils/event_transform_util.dart';
 export 'src/utils/iterable_util.dart';
 export 'src/utils/magnet_scroll_physics.dart';
 export 'src/utils/material_state_property_util.dart';
+export 'src/utils/reorderable_list_view_util.dart';
 export 'src/utils/text_editing_controller_util.dart';
 export 'src/utils/text_style_util.dart';
 export 'src/utils/url_string_parser.dart';

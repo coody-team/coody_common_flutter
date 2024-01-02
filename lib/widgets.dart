@@ -11,6 +11,7 @@ export 'src/widgets/buttons/toggle_button.dart';
 
 export 'src/widgets/selections/select_buttons.dart';
 export 'src/widgets/selections/select_tiles.dart';
+export 'src/widgets/selections/time_picker.dart';
 
 export 'src/widgets/app_snack_bar.dart';
 export 'src/widgets/bar_divider.dart';

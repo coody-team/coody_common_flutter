@@ -5,6 +5,7 @@ import 'package:coody_common_flutter/src/widgets/buttons/app_button.dart';
 import 'package:coody_common_flutter/src/widgets/buttons/function_button.dart';
 import 'package:coody_common_flutter/src/widgets/buttons/left_aligned_outlined_button.dart';
 import 'package:coody_common_flutter/src/widgets/selections/select_tiles.dart';
+import 'package:coody_common_flutter/src/widgets/selections/time_picker.dart';
 import 'package:flutter/material.dart';
 
 Future<void> showAppModalBottomSheet(
@@ -312,6 +313,65 @@ class BottomSheetAgreeTermsFrame extends StatelessWidget {
               Expanded(
                 child: AppButtonTheme(
                   data: AppButtonThemeData(style: context.buttonThemes.primary.filled.medium),
+                  child: rightButton,
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class BottomSheetTimePickerFrame extends StatelessWidget {
+  const BottomSheetTimePickerFrame({
+    super.key,
+    this.minutes,
+    this.onHourChanged,
+    this.onMinuteChanged,
+    required this.rightButton,
+    this.leftButton,
+  });
+
+  final List<int>? minutes;
+  final void Function(int hour)? onHourChanged;
+  final void Function(int minute)? onMinuteChanged;
+  final Widget rightButton;
+  final Widget? leftButton;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: _bottomSheetPadding,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          TimePicker(
+            minutes: minutes,
+            onHourChanged: onHourChanged,
+            onMinuteChanged: onMinuteChanged,
+            size: TimerPickerSize.large,
+          ),
+          const SizedBox(height: 16.0),
+          Row(
+            children: [
+              if (leftButton != null) ...[
+                Expanded(
+                  child: AppButtonTheme(
+                    data: AppButtonThemeData(
+                      style: context.buttonThemes.primary.none.medium,
+                    ),
+                    child: leftButton!,
+                  ),
+                ),
+                const SizedBox(width: 16.0),
+              ],
+              Expanded(
+                child: AppButtonTheme(
+                  data: AppButtonThemeData(
+                    style: context.buttonThemes.primary.filled.medium,
+                  ),
                   child: rightButton,
                 ),
               ),
